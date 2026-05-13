@@ -202,11 +202,23 @@ function renderResult(result) {
   resultCard.style.borderColor = color + '40';
   resultCard.style.boxShadow = `0 0 40px ${color}33`;
 
-  // Add click listeners for expandable items
+  // Add click listeners for expandable items (after they are added to the DOM)
   document.querySelectorAll('.expandable-item').forEach(item => {
-    item.addEventListener('click', () => {
-      item.classList.toggle('expanded');
-    });
+    const header = item.querySelector('.expandable-header');
+    const indicator = item.querySelector('.expand-indicator');
+    
+    if (header && indicator) {
+      // Toggle works on click anywhere on the card header
+      header.addEventListener('click', () => {
+        item.classList.toggle('expanded');
+        // Add the arrow character directly in the JavaScript
+        if (item.classList.contains('expanded')) {
+          indicator.textContent = '▲';
+        } else {
+          indicator.textContent = '▼';
+        }
+      });
+    }
   });
 }
 

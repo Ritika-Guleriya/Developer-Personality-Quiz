@@ -299,8 +299,14 @@ Return ONLY a valid JSON object, no markdown, no backticks, no explanation:
   "type": "personality name here",
   "emoji": "one emoji",
   "description": "two funny lines",
-  "roast": "one brutal roast line",
-  "strength": "one genuine strength",
+  "roast": {
+    "short": "One brutal, honest roast line",
+    "detailed": "A full, detailed paragraph expanding on why they are being roasted this way based on their answers"
+  },
+  "strength": {
+    "short": "One genuine strength line",
+    "detailed": "A full, detailed paragraph expanding on why this strength makes them a great data person"
+  },
   "alignment": "Chaotic Neutral or Lawful Good etc",
   "skill_bars": {
     "Skill1": 85,
@@ -308,7 +314,10 @@ Return ONLY a valid JSON object, no markdown, no backticks, no explanation:
     "Skill3": 67,
     "Skill4": 91
   },
-  "recommended_tool": "tool name and why"
+  "recommended_tool": {
+    "name": "tool name",
+    "description": "why they should use it"
+  }
 }`;
 }
 
