@@ -257,68 +257,67 @@ const FALLBACK_PERSONALITY = {
 
 // Helper: Build the prompt for Groq
 function buildGroqPrompt(answers) {
-  // Debug: Verify answers are being used
-  console.log('🏗️ Building Groq prompt with answers:', answers);
-  
-  const answersText = QUIZ_QUESTIONS.map((q, idx) => {
-    const answerIdx = answers[idx];
-    const answer = answerIdx !== undefined && answerIdx < 4 ? q.options[answerIdx] : "Unknown";
-    console.log(`  Q${idx + 1}: Answer index ${answerIdx} = "${answer}"`);
-    return `Q${idx + 1}: ${q.question}\nAnswer: ${answer}`;
-  }).join('\n\n');
+  const questionLabels = [
+    "Q1: Your model just hit 99% training accuracy. You:",
+    "Q2: It's 2am. Your pipeline broke. You:",
+    "Q3: Your Jupyter notebook folder looks like:",
+    "Q4: Someone asks you to explain your model. You:",
+    "Q5: Your go-to debugging technique is:",
+    "Q6: Your relationship with documentation is:",
+    "Q7: You see a dataset with 40% missing values. You:",
+    "Q8: Your favorite way to visualize data is:",
+    "Q9: When your model underperforms, you:",
+    "Q10: Your dream job title is:"
+  ];
+  const optionLabels = ["A", "B", "C", "D"];
+  const answerSummary = answers.map((ans, i) => 
+    `${questionLabels[i]} → Option ${optionLabels[ans]}`
+  ).join("\n");
 
-  const personalityDescriptions = PERSONALITY_TYPES.map(p => {
-    return `- ${p.emoji} ${p.type}: ${p.description}`;
-  }).join('\n');
+  return `You are a witty personality analyzer for developers and CS students.
+Based on these quiz answers, assign ONE personality type from the list below.
 
-  return `Based on the following quiz responses, determine which data personality type best matches this person.
+User's answers:
+${answerSummary}
 
-${answersText}
+Personality types to choose from:
+- The Overfit Overlord
+- The Chaotic Pandas Wrangler
+- The Silent Visualization Artist
+- The Pipeline Architect
+- The Notebook Hoarder
+- The AutoML Evangelist
+- The Feature Engineering Ninja
+- The Metric Manipulator
+- The Reproducibility Fanatic
+- The Stack Overflow Sorcerer
+- The Theory Purist
+- The Speed Demon
 
-Here are the 12 personality types to choose from:
-${personalityDescriptions}
-
-Respond ONLY with valid JSON (no markdown, no code fences, no backticks, pure JSON). Do not include any text before or after the JSON.
-
+Return ONLY a valid JSON object, no markdown, no backticks, no explanation:
 {
-  "type": "exact personality type name from the list",
-  "emoji": "emoji character only",
-  "description": "Two funny lines about this personality based on their answers",
-  "roast": {
-    "short": "One brutal, honest roast line",
-    "detailed": "A full, detailed paragraph expanding on why they are being roasted this way based on their answers"
-  },
-  "strength": {
-    "short": "One genuine strength line",
-    "detailed": "A full, detailed paragraph expanding on why this strength makes them a great data person"
-  },
-  "alignment": "alignment choice like 'Chaotic Neutral', 'Lawful Good', etc.",
+  "type": "personality name here",
+  "emoji": "one emoji",
+  "description": "two funny lines",
+  "roast": "one brutal roast line",
+  "strength": "one genuine strength",
+  "alignment": "Chaotic Neutral or Lawful Good etc",
   "skill_bars": {
-    "Creativity": { "percentage": number, "description": "A detailed explanation of their creativity level" },
-    "Problem Solving": { "percentage": number, "description": "A detailed explanation of their problem solving skills" },
-    "Data Visualization": { "percentage": number, "description": "A detailed explanation of their visualization approach" },
-    "Communication": { "percentage": number, "description": "A detailed explanation of how they communicate their findings" }
+    "Skill1": 85,
+    "Skill2": 23,
+    "Skill3": 67,
+    "Skill4": 91
   },
-  "recommended_tool": {
-    "name": "A funny recommended tool or library",
-    "description": "A detailed explanation of why they should use this tool"
-  }
+  "recommended_tool": "tool name and why"
 }`;
 }
 
 // Helper: Parse Groq response
-function parseGroqResponse(text) {
+function parseGroqResponse(rawText) {
   try {
-    // Clean up the response - remove markdown code blocks if present
-    let cleanText = text.trim();
-    if (cleanText.startsWith('```json')) {
-      cleanText = cleanText.replace(/^```json\n/, '').replace(/\n```$/, '');
-    } else if (cleanText.startsWith('```')) {
-      cleanText = cleanText.replace(/^```\n/, '').replace(/\n```$/, '');
-    }
-    
-    const parsed = JSON.parse(cleanText);
-    return parsed;
+    const clean = rawText.replace(/```json|```/g, "").trim();
+    const result = JSON.parse(clean);
+    return result;
   } catch (error) {
     console.error('JSON parse error:', error.message);
     return null;
@@ -335,6 +334,7 @@ async function callGroqAPI(answers, retryCount = 0) {
 
     console.log('📝 Building prompt for Groq API...');
     const prompt = buildGroqPrompt(answers);
+    console.log('Prompt being sent to Groq:\n', prompt);
     console.log('✅ Prompt built. Sending fresh request to Groq (no caching)...');
 
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -355,7 +355,7 @@ async function callGroqAPI(answers, retryCount = 0) {
             content: prompt
           }
         ],
-        temperature: 0.7,
+        temperature: 0.8,
         max_tokens: 1024
       })
     });
@@ -375,7 +375,7 @@ async function callGroqAPI(answers, retryCount = 0) {
       throw new Error('No content in Groq response');
     }
 
-    console.log('🎯 Groq response received:', content.substring(0, 100) + '...');
+    console.log('Raw response from Groq:\n', content);
     const parsed = parseGroqResponse(content);
     console.log('✅ Parsed personality result:', parsed?.type);
     
@@ -403,6 +403,7 @@ app.get('/', (req, res) => {
 
 // API: Submit quiz answers
 app.post('/api/submit', async (req, res) => {
+  console.log("Received answers:", req.body.answers);
   try {
     const { answers } = req.body;
 
