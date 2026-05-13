@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Discover your StackSelf Developer Personality Type. 10 questions, brutally accurate results, zero judgment.">
+  <meta property="og:title" content="What Kind of Developer Are You?">
+  <meta property="og:description" content="10 questions. Brutally accurate results. Zero judgment.">
+  <meta property="og:type" content="website">
+  <title>StackSelf | Discover Your Developer Type</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <canvas id="matrix-bg"></canvas>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <svg class="logo-svg" width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g class="glitch-layer-main">
+            <!-- Left Organic Brain -->
+            <path d="M 50 15 C 25 15 10 30 10 50 C 10 70 25 85 45 85 C 48 85 50 83 50 80 V 15 Z" fill="none" stroke="#a855f7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 25 35 Q 35 25 50 35" fill="none" stroke="#a855f7" stroke-width="5" stroke-linecap="round"/>
+            <path d="M 18 50 Q 30 40 50 50" fill="none" stroke="#a855f7" stroke-width="5" stroke-linecap="round"/>
+            <path d="M 25 65 Q 35 75 50 65" fill="none" stroke="#a855f7" stroke-width="5" stroke-linecap="round"/>
+            
+            <!-- Right Circuit Brain -->
+            <path d="M 50 15 L 75 15 L 90 30 L 90 70 L 75 85 L 50 85" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linejoin="miter"/>
+            <path d="M 50 35 L 65 35 L 75 25" fill="none" stroke="#00d4ff" stroke-width="4" />
+            <path d="M 50 50 L 65 50 L 75 60 L 90 60" fill="none" stroke="#00d4ff" stroke-width="4" />
+            <path d="M 50 65 L 60 65 L 70 75" fill="none" stroke="#00d4ff" stroke-width="4" />
+            
+            <circle cx="75" cy="25" r="3.5" fill="#00d4ff"/>
+            <circle cx="90" cy="60" r="3.5" fill="#00d4ff"/>
+            <circle cx="70" cy="75" r="3.5" fill="#00d4ff"/>
+            <circle cx="75" cy="15" r="3.5" fill="#00d4ff"/>
+            <circle cx="90" cy="30" r="3.5" fill="#00d4ff"/>
+            <circle cx="75" cy="85" r="3.5" fill="#00d4ff"/>
+            
+            <!-- Stem/Spine -->
+            <path d="M 45 85 L 45 95 L 55 95 L 55 85" fill="none" stroke="#a855f7" stroke-width="5" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <span class="logo-text">StackSelf</span>
+      </div>
+      <div class="navbar-links">
+        <a href="/" class="nav-link">Quiz</a>
+        <a href="/stats.html" class="nav-link">Personalities</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <h1 class="hero-headline">Take the Quiz. Find Your Inner Developer.</h1>
+      <p class="hero-subheadline">10 questions. Brutally accurate results. Zero judgment.</p>
+
+      <a href="/quiz.html" class="btn btn-primary btn-lg">
+        <span>Start Quiz</span>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <div class="live-counter">
+        <span class="counter-emoji">💻</span>
+        <span id="counter-text">Find out if you're a genius or just good at Googling.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser Section -->
+  <section class="teaser">
+    <h2>Preview the Personalities</h2>
+    <div class="marquee-container">
+      <div class="marquee-track" id="previewMarquee">
+        <!-- Cards will be injected by preview.js -->
+        <div class="personality-card tease"><div class="personality-emoji">🔥</div><div class="personality-name">Loading...</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 StackSelf. Built with curiosity and code.</p>
+  </footer>
+
+
+  <script src="js/matrix.js"></script>
+  <script src="js/preview.js"></script>
+</body>
+
+</html>

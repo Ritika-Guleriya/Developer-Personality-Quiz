@@ -1,0 +1,191 @@
+/* ========== STATS PAGE STYLES ========== */
+
+.stats-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;
+}
+
+/* ========== STATS HEADER ========== */
+.stats-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.stats-header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.stats-header p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.total-count {
+  display: inline-block;
+  background: var(--card-dark);
+  border: 2px solid rgba(168, 85, 247, 0.2);
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-purple);
+  font-size: 1.1rem;
+}
+
+/* ========== CHART CONTAINER ========== */
+.chart-container {
+  background: var(--card-dark);
+  border: 2px solid rgba(168, 85, 247, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+  max-height: 400px;
+}
+
+#statsChart {
+  max-height: 300px;
+}
+
+/* ========== PERSONALITY STATS GRID ========== */
+.personality-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+.personality-stat-card {
+  background: var(--card-dark);
+  border: 2px solid rgba(168, 85, 247, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.personality-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.personality-stat-card:hover {
+  border-color: var(--accent-purple);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+}
+
+.personality-stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.stat-emoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.stat-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.stat-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.stat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(168, 85, 247, 0.1);
+}
+
+.stat-count {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-purple);
+}
+
+.stat-percentage {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+/* ========== LOADING STATE ========== */
+.loading-skeleton {
+  background: linear-gradient(90deg, var(--card-dark), rgba(168, 85, 247, 0.1), var(--card-dark));
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 0.5rem;
+  height: 1rem;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .stats-container {
+    padding: 7rem 1.5rem 3rem;
+  }
+  
+  .chart-container {
+    padding: 1.5rem;
+    max-height: 350px;
+  }
+  
+  #statsChart {
+    max-height: 250px;
+  }
+  
+  .personality-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .personality-stat-card {
+    padding: 1.5rem;
+  }
+  
+  .stat-emoji {
+    font-size: 2rem;
+  }
+  
+  .stat-name {
+    font-size: 1rem;
+  }
+}

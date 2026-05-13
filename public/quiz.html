@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StackSelf Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+  <canvas id="matrix-bg"></canvas>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <svg class="logo-svg" width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g class="glitch-layer-main">
+            <!-- Left Organic Brain -->
+            <path d="M 50 15 C 25 15 10 30 10 50 C 10 70 25 85 45 85 C 48 85 50 83 50 80 V 15 Z" fill="none" stroke="#a855f7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 25 35 Q 35 25 50 35" fill="none" stroke="#a855f7" stroke-width="5" stroke-linecap="round"/>
+            <path d="M 18 50 Q 30 40 50 50" fill="none" stroke="#a855f7" stroke-width="5" stroke-linecap="round"/>
+            <path d="M 25 65 Q 35 75 50 65" fill="none" stroke="#a855f7" stroke-width="5" stroke-linecap="round"/>
+            
+            <!-- Right Circuit Brain -->
+            <path d="M 50 15 L 75 15 L 90 30 L 90 70 L 75 85 L 50 85" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linejoin="miter"/>
+            <path d="M 50 35 L 65 35 L 75 25" fill="none" stroke="#00d4ff" stroke-width="4" />
+            <path d="M 50 50 L 65 50 L 75 60 L 90 60" fill="none" stroke="#00d4ff" stroke-width="4" />
+            <path d="M 50 65 L 60 65 L 70 75" fill="none" stroke="#00d4ff" stroke-width="4" />
+            
+            <circle cx="75" cy="25" r="3.5" fill="#00d4ff"/>
+            <circle cx="90" cy="60" r="3.5" fill="#00d4ff"/>
+            <circle cx="70" cy="75" r="3.5" fill="#00d4ff"/>
+            <circle cx="75" cy="15" r="3.5" fill="#00d4ff"/>
+            <circle cx="90" cy="30" r="3.5" fill="#00d4ff"/>
+            <circle cx="75" cy="85" r="3.5" fill="#00d4ff"/>
+            
+            <!-- Stem/Spine -->
+            <path d="M 45 85 L 45 95 L 55 95 L 55 85" fill="none" stroke="#a855f7" stroke-width="5" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <span class="logo-text">StackSelf</span>
+      </div>
+      <div class="navbar-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/stats.html" class="nav-link">Personalities</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="quiz-container">
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Quiz Content -->
+    <div class="quiz-content">
+      <div class="question-badge" id="questionBadge">Q1</div>
+      
+      <h1 class="question-text" id="questionText">Loading...</h1>
+      
+      <div class="options-grid" id="optionsGrid">
+        <!-- Options will be inserted here -->
+      </div>
+    </div>
+
+    <!-- Loading Screen (hidden initially) -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-content">
+        <h2>Analyzing your chaos...</h2>
+        <div class="loading-animation">
+          <div class="spinner"></div>
+        </div>
+        <p class="loading-messages" id="loadingMessage">Consulting the data gods...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/quiz.js"></script>
+  <script src="js/matrix.js"></script>
+</body>
+</html>
